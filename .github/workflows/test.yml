@@ -24,8 +24,7 @@ jobs:
         uses: eifinger/setup-rye@v3
         id: setup-rye
         with:
-          enable-cache: true
-          cache-prefix: ${{ steps.set-python-version.outputs.python_version }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pin python-version ${{ steps.set-python-version.outputs.python_version }}
         if: steps.setup-rye.outputs.cache-hit != 'true'
