@@ -30,10 +30,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pin python-version ${{ steps.set-python-version.outputs.python_version }}
-        if: steps.setup-rye.outputs.cache-hit != 'true'
-        run: rye pin ${{ steps.set-python-version.outputs.python_version }}
-
       - name: Install dependencies
         if: steps.setup-rye.outputs.cache-hit != 'true'
         run: |
