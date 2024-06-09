@@ -4,7 +4,6 @@
     "ms-python.python",
     "ms-python.vscode-pylance",
     "shardulm94.trailing-spaces",
-    "ms-python.mypy-type-checker",
     "charliermarsh.ruff"
   ]
 }

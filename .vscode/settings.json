@@ -1,15 +1,14 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
-  "cSpell.words": ["pydantic", "pyright"],
-  "editor.formatOnSave": true,
+  "cSpell.words": ["pyright"],
   "python.analysis.autoImportCompletions": true,
   "python.analysis.typeCheckingMode": "basic",
   "python.languageServer": "Pylance",
-  "python.defaultInterpreterPath": ".venv/bin/python",
-  "mypy-type-checker.args": ["--config-file=pyproject.toml"],
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
-  }
+  "python.defaultInterpreterPath": ".venv/bin/python"
 }
