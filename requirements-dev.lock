@@ -8,3 +8,4 @@
 #   with-sources: false
 #   generate-hashes: false
 
+ruff==0.5.0
