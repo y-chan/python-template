@@ -1,6 +1,6 @@
 [project]
 name = "python-template"
-version = "latest"
+version = "999.999.999"
 description = "Add your description here"
 authors = [{ name = "sushi-chaaaan", email = "mail@sushichan.live" }]
 dependencies = []

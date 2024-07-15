@@ -34,8 +34,8 @@ jobs:
         run: |
           : # release タグ名, または workflow_dispatch でのバージョン名. リリースでない (push event) 場合は空文字列
           echo "version=${{ github.event.release.tag_name || github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
-          : # release タグ名, または workflow_dispatch でのバージョン名, または 'latest'
-          echo "version_or_latest=${{ github.event.release.tag_name || github.event.inputs.version || 'latest' }}" >> "$GITHUB_OUTPUT"
+          : # release タグ名, または workflow_dispatch でのバージョン名, または '999.999.999'
+          echo "version_or_latest=${{ github.event.release.tag_name || github.event.inputs.version || '999.999.999' }}" >> "$GITHUB_OUTPUT"
 
   check:
     runs-on: ubuntu-22.04
@@ -92,7 +92,7 @@ jobs:
       - name: Replace version
         run: |
           set -eux
-          sed -i "s/version = "latest"/version = \"${{ needs.config.outputs.version_or_latest }}\"/" pyproject.toml
+          sed -i "s/version = "999.999.999"/version = \"${{ needs.config.outputs.version_or_latest }}\"/" pyproject.toml
 
       - name: Extract package name
         id: package_name
