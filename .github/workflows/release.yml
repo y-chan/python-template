@@ -36,9 +36,9 @@ jobs:
         id: vars
         run: |
           : # release タグ名, または workflow_dispatch でのバージョン名. リリースでない (push event) 場合は空文字列
-          echo "version=${{ github.event.release.tag_name || github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
+          echo "version=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
           : # release タグ名, または workflow_dispatch でのバージョン名, または '999.999.999'
-          echo "version_or_latest=${{ github.event.release.tag_name || github.event.inputs.version || '999.999.999' }}" >> "$GITHUB_OUTPUT"
+          echo "version_or_latest=${{ github.event.inputs.version || '999.999.999' }}" >> "$GITHUB_OUTPUT"
 
   check:
     runs-on: ubuntu-22.04
@@ -95,13 +95,13 @@ jobs:
       - name: Replace version
         run: |
           set -eux
-          sed -i "s/version = "999.999.999"/version = \"${{ needs.config.outputs.version_or_latest }}\"/" pyproject.toml
+          sed -i 's/version = "999.999.999"/version = \"${{ needs.config.outputs.version_or_latest }}\"/' pyproject.toml
 
       - name: Extract package name
         id: package_name
         run: |
           set -eux
-          PACKAGE_NAME=$(cat pyproject.toml | grep -xoE "name = \"(.*?)\"" | sed -r 's/name = "(.*?)"/\1/')
+          PACKAGE_NAME=$(grep -xoE "name = \"(.*?)\"" pyproject.toml | sed -r 's/name = "(.*?)"/\1/')
           echo "package_name=${PACKAGE_NAME}_${{ needs.config.outputs.version_or_latest }}" >> "$GITHUB_OUTPUT"
 
       - name: Packaging
@@ -119,4 +119,3 @@ jobs:
           tag: ${{ needs.config.outputs.version }}
           artifacts: ${{ steps.package_name.outputs.package_name }}.zip
           commit: ${{ github.sha }}
-          body: ${{ steps.tag_version.outputs.changelog }}
