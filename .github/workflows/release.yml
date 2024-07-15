@@ -99,7 +99,7 @@ jobs:
         run: |
           set -eux
           PACKAGE_NAME=$(cat pyproject.toml | grep -xoE "name = \"(.*?)\"" | sed -r 's/name = "(.*?)"/\1/')
-          echo "package_name=${package_name}_${{ needs.config.outputs.version_or_latest }}" >> "$GITHUB_OUTPUT"
+          echo "package_name=${PACKAGE_NAME}_${{ needs.config.outputs.version_or_latest }}" >> "$GITHUB_OUTPUT"
 
       - name: Packaging
         run: |
