@@ -104,7 +104,7 @@ jobs:
       - name: Packaging
         run: |
           set -eux
-          zip -r ${{ steps.package_name.output.package_name }}.zip src/
+          zip -r "${{ steps.package_name.output.package_name }}.zip" src/
 
       - name: Create release
         if: needs.config.outputs.version != ''
@@ -114,5 +114,7 @@ jobs:
           prerelease: ${{ github.event.inputs.prerelease }}
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ needs.config.outputs.version }}
-          artifacts: ${{ steps.package_name.output.package_name }}.zip
+          artifacts: >
+            ${{ steps.package_name.output.package_name }}.zip
           commit: ${{ github.sha }}
+          body: ${{ steps.tag_version.outputs.changelog }}
